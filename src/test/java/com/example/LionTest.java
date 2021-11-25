@@ -1,5 +1,6 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,8 +33,13 @@ public class LionTest {
         Mockito.verify(feline).getFood("Хищник");
     }
 
-    @Test(expected = Exception.class)
-    public void whenExceptionThrown_thenExpectationSatisfied() throws Exception {
-        Lion lion = new Lion("Другое", feline);
+    @Test
+    public void testExceptionThrownWhenLionSexIsOther() throws Exception {
+        try {
+            Lion lion = new Lion("Другое", feline);
+        } catch (Exception e) {
+            String errorMessage = "Используйте допустимые значения пола животного - самей или самка";
+            Assert.assertEquals("Unexpected error message", errorMessage, e.getMessage());
+        }
     }
 }
